@@ -1,7 +1,7 @@
 // HTML要素を取得
 const searchButton = document.getElementById('search-button');
 const ingredientInputs = document.querySelectorAll('.input-group input');
-const recipeContainer = document.getElementById('recipe-list-container');
+const recipeList = document.getElementById('recipe-list'); // 結果を表示するul
 const loader = document.getElementById('loader');
 
 let allRecipes = [];
@@ -10,11 +10,9 @@ let allRecipes = [];
 async function loadRecipes() {
     try {
         const response = await fetch('cooking_data_1000.csv');
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.text();
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         
+        const data = await response.text();
         const rows = data.split('\n').filter(row => row.trim() !== '');
         rows.shift(); // ヘッダー行を削除
 
@@ -31,7 +29,7 @@ async function loadRecipes() {
         console.log('レシピデータの読み込み完了！');
     } catch (e) {
         console.error("レシピデータの読み込みに失敗しました:", e);
-        recipeContainer.innerHTML = '<p>エラー: レシピデータを読み込めませんでした。</p>';
+        recipeList.innerHTML = '<li>エラー: レシピデータを読み込めませんでした。</li>';
     }
 }
 
@@ -46,12 +44,12 @@ searchButton.addEventListener('click', () => {
                                   .filter(i => i);
 
     if (inputIngredients.length === 0) {
-        recipeContainer.innerHTML = '<p>食材を1つ以上入力してください。</p>';
+        recipeList.innerHTML = '<li class="recipe-item">食材を1つ以上入力してください。</li>';
         return;
     }
 
     // ローディング表示を開始
-    recipeContainer.innerHTML = '';
+    recipeList.innerHTML = '';
     loader.classList.remove('hidden');
 
     // 検索処理を少し遅らせて、ローディングが見えるようにする
@@ -68,13 +66,13 @@ searchButton.addEventListener('click', () => {
         // 結果を表示
         if (foundRecipes.length > 0) {
             foundRecipes.forEach(recipe => {
-                const recipeElement = document.createElement('div');
-                recipeElement.className = 'recipe-item';
-                recipeElement.textContent = recipe.name;
-                recipeContainer.appendChild(recipeElement);
+                const listItem = document.createElement('li');
+                listItem.className = 'recipe-item'; // CSSクラスを適用
+                listItem.textContent = recipe.name;
+                recipeList.appendChild(listItem);
             });
         } else {
-            recipeContainer.innerHTML = '<p>ごめんなさい、その組み合わせの料理は見つかりませんでした...</p>';
+            recipeList.innerHTML = '<li class="recipe-item">ごめんなさい、その組み合わせの料理は見つかりませんでした...</li>';
         }
     }, 500); // 0.5秒後に検索結果を表示
 });

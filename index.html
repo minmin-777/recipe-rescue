@@ -1,31 +1,26 @@
 <body>
-
-    <header>
-        <h1>冷蔵庫の残り物レスキュー 🍳</h1>
-        <p>冷蔵庫にある食材を入れるだけで、作れる料理を提案します！</p>
-    </header>
-
+    <div class="background-shapes"></div>
     <main>
-        <div class="search-container">
-            <h2>食材を入力してください</h2>
+        <div class="card search-container">
+            <header>
+                <h1>冷蔵庫の残り物レスキュー 🍳</h1>
+                <p>眠っている食材で、素敵な一皿を。</p>
+            </header>
+            
             <div class="input-group">
-                <input type="text" id="ingredient1" placeholder="例：豚肉">
-                <input type="text" id="ingredient2" placeholder="例：玉ねぎ">
-                <input type="text" id="ingredient3" placeholder="例：卵">
+                <input type="text" id="ingredient1" placeholder="食材１（例：鶏肉）">
+                <input type="text" id="ingredient2" placeholder="食材２（例：トマト）">
+                <input type="text" id="ingredient3" placeholder="食材３（例：チーズ）">
             </div>
-            <button id="search-button">この食材で作れる料理は？</button>
+            <button id="search-button">レシピを探す</button>
         </div>
 
-        <div class="result-container">
+        <div class="card result-container">
             <h2>提案レシピ</h2>
+            <div id="loader" class="hidden"></div>
             <div id="recipe-list-container">
                 </div>
         </div>
     </main>
-
-    <footer>
-        <p>&copy; 2025 Recipe Rescue</p>
-    </footer>
-
     <script src="script.js"></script>
 </body>

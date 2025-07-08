@@ -1,80 +1,103 @@
 /* Googleフォントの読み込み */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap');
 
 /* 全体の基本設定 */
+:root {
+    --card-bg-color: rgba(255, 255, 255, 0.15);
+    --border-color: rgba(255, 255, 255, 0.3);
+    --text-color: #f0f0f0;
+    --accent-color: #8A2BE2; /* ブルーバイオレット */
+}
+
 body {
-    font-family: 'Noto Sans JP', sans-serif; /* 日本語がきれいに表示されるフォント */
+    font-family: 'M PLUS Rounded 1c', sans-serif;
     margin: 0;
-    background-color: #f0f2f5; /* 少し青みがかった背景色 */
-    color: #333;
-}
-
-/* ヘッダー */
-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: #fff;
     padding: 2rem 1rem;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    color: var(--text-color);
+    background: #121212; /* ダークな背景 */
+    min-height: 100vh;
+    box-sizing: border-box;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 2.5rem;
+/* 背景の動く図形 */
+.background-shapes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(135deg, #1e1e3f 0%, #121212 70%);
+    overflow: hidden;
+}
+.background-shapes::before, .background-shapes::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--accent-color), #4a00e0);
+    animation: float 20s infinite alternate;
+}
+.background-shapes::before {
+    width: 30vmax;
+    height: 30vmax;
+    top: -10vmax;
+    left: -10vmax;
+    opacity: 0.3;
+}
+.background-shapes::after {
+    width: 40vmax;
+    height: 40vmax;
+    bottom: -15vmax;
+    right: -15vmax;
+    opacity: 0.4;
+    animation-duration: 25s;
+}
+@keyframes float {
+    from { transform: translateY(0px) rotate(0deg); }
+    to { transform: translateY(30px) rotate(20deg); }
 }
 
-/* メインコンテンツ */
 main {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
-.search-container, .result-container {
-    background-color: #fff;
+/* グラスモーフィズムカード */
+.card {
+    background: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
     padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+header {
+    text-align: center;
     margin-bottom: 2rem;
 }
-
-h2 {
-    margin-top: 0;
-    font-size: 1.5rem;
-    border-bottom: 2px solid #667eea;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
-}
+header h1 { margin: 0 0 0.5rem 0; font-size: 2rem; }
+header p { margin: 0; opacity: 0.8; }
 
 /* 入力フォーム */
-.input-group {
-    display: grid;
-    grid-template-columns: 1fr; /* スマホでは縦に並ぶ */
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-/* PCでは横に並べる */
-@media (min-width: 600px) {
-    .input-group {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
+.input-group { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; }
 input[type="text"] {
-    width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 1rem;
+    border-radius: 10px;
     font-size: 1rem;
-    box-sizing: border-box; /* paddingを含めて幅を計算 */
-    transition: border-color 0.3s, box-shadow 0.3s;
+    transition: all 0.3s;
 }
-
-input[type="text"]:focus {
+input::placeholder { color: rgba(255,255,255,0.5); }
+input:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+    background: rgba(0,0,0,0.3);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.4);
 }
 
 /* ボタン */
@@ -82,44 +105,45 @@ button {
     width: 100%;
     padding: 1rem;
     border: none;
-    background: linear-gradient(135deg, #5cb85c 0%, #4cae4c 100%);
+    background: var(--accent-color);
     color: white;
     font-size: 1.1rem;
     font-weight: bold;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: all 0.3s;
 }
-
 button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    background: #9932CC; /* ダークオーキッド */
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
 }
 
-/* 結果表示エリア */
-#recipe-list-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1.5rem;
+/* 結果エリア */
+.result-container h2 { text-align: center; }
+#recipe-list-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+.recipe-item {
+    background: rgba(255,255,255, 0.2);
+    padding: 0.8rem 1.2rem;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s;
 }
+.recipe-item:hover { background: var(--accent-color); transform: scale(1.05); }
 
-.recipe-card {
-    background-color: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 8px;
-    padding: 1rem;
-    text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
+/* ローディングスピナー */
+#loader {
+    border: 5px solid rgba(255,255,255,0.2);
+    border-top: 5px solid var(--accent-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 2rem auto;
 }
-
-.recipe-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
-
-/* フッター */
-footer {
-    text-align: center;
-    padding: 1.5rem;
-    color: #888;
-}
+.hidden { display: none; }

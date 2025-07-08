@@ -43,27 +43,25 @@ loadRecipes();
 
 // 検索ボタンがクリックされた時の処理
 searchButton.addEventListener('click', () => {
-    // 結果リストを空にする
-    recipeList.innerHTML = '';
+    // ★変更点：結果コンテナを取得し、中身を空にする
+    const recipeContainer = document.getElementById('recipe-list-container');
+    recipeContainer.innerHTML = '';
 
     // 入力された食材を取得し、空でなければ配列に入れる
     const inputIngredients = [
         ingredient1.value.trim(),
         ingredient2.value.trim(),
         ingredient3.value.trim()
-    ].filter(i => i); // .trim()で余計な空白を削除
+    ].filter(i => i);
 
     // 入力された食材が1つもなければ、ここで処理を終了
     if (inputIngredients.length === 0) {
-        recipeList.innerHTML = '<li>食材を1つ以上入力してください。</li>';
+        recipeContainer.innerHTML = '<p>食材を1つ以上入力してください。</p>';
         return;
     }
 
-    // --- ▼ 検索ロジックを本格的に変更 ▼ ---
-
     // 全レシピの中から、条件に合うものを探し出す
     const foundRecipes = allRecipes.filter(recipe => {
-        // 入力された食材が「すべて」含まれているかチェックする
         return inputIngredients.every(inputIngredient => 
             recipe.ingredients.some(recipeIngredient => recipeIngredient.includes(inputIngredient))
         );
@@ -72,12 +70,14 @@ searchButton.addEventListener('click', () => {
     // 結果を表示する
     if (foundRecipes.length > 0) {
         foundRecipes.forEach(recipe => {
-            const listItem = document.createElement('li');
-            listItem.textContent = recipe.name;
-            recipeList.appendChild(listItem);
+            // ★変更点：カード要素を作成して追加する
+            const card = document.createElement('div');
+            card.className = 'recipe-card'; // CSSクラスを適用
+            card.textContent = recipe.name;
+            recipeContainer.appendChild(card);
         });
     } else {
         // 1件も見つからなかった場合
-        recipeList.innerHTML = '<li>ごめんなさい、その組み合わせの料理は見つかりませんでした...</li>';
+        recipeContainer.innerHTML = '<p>ごめんなさい、その組み合わせの料理は見つかりませんでした...</p>';
     }
 });

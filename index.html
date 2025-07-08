@@ -1,26 +1,27 @@
 <body>
-    <div class="background-shapes"></div>
-    <main>
-        <div class="card search-container">
-            <header>
-                <h1>冷蔵庫の残り物レスキュー 🍳</h1>
-                <p>眠っている食材で、素敵な一皿を。</p>
-            </header>
-            
-            <div class="input-group">
-                <input type="text" id="ingredient1" placeholder="食材１（例：鶏肉）">
-                <input type="text" id="ingredient2" placeholder="食材２（例：トマト）">
-                <input type="text" id="ingredient3" placeholder="食材３（例：チーズ）">
-            </div>
-            <button id="search-button">レシピを探す</button>
-        </div>
+    <div class="container">
+        <header>
+            <h1>冷蔵庫レスキュー</h1>
+            <p>食材から、今日の献立を見つけよう。</p>
+        </header>
 
-        <div class="card result-container">
-            <h2>提案レシピ</h2>
-            <div id="loader" class="hidden"></div>
-            <div id="recipe-list-container">
-                </div>
-        </div>
-    </main>
+        <main>
+            <div class="input-area">
+                <i class="icon-fridge"></i>
+                <input type="text" id="ingredient1" placeholder="豚バラ肉…">
+                <input type="text" id="ingredient2" placeholder="キャベツ…">
+                <input type="text" id="ingredient3" placeholder="ピーマン…">
+            </div>
+            <button id="search-button">
+                <span class="button-text">レシピを探す</span>
+            </button>
+
+            <div class="result-area">
+                <div id="loader" class="hidden"></div>
+                <div id="recipe-grid">
+                    </div>
+            </div>
+        </main>
+    </div>
     <script src="script.js"></script>
 </body>

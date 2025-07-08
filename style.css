@@ -1,86 +1,84 @@
-/* Googleフォントの読み込み */
-@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap');
+/* Googleフォントとアイコンの読み込み */
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;800&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 
-/* 全体の基本設定 */
+/* 変数定義 */
 :root {
-    --primary-color: #4A90E2; /* 鮮やかなブルー */
-    --secondary-color: #50E3C2; /* 明るいミントグリーン */
-    --background-start: #81D4FA; /* 空色 */
-    --background-end: #4A90E2;
-    --text-color: #333;
-    --light-text-color: #777;
-    --card-bg: #ffffff;
-    --shadow-color: rgba(0, 0, 0, 0.1);
+    --bg-color: #F2EAE4; /* 暖かみのあるベージュ */
+    --card-color: #FDFDFD;
+    --shadow-light: #FFFFFF;
+    --shadow-dark: #D1C8C1;
+    --text-color: #4A4A4A;
+    --accent-color: #FF7043; /* 活気のあるオレンジ */
+    --icon-color: #B0A9A3;
 }
 
 body {
     font-family: 'M PLUS Rounded 1c', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     margin: 0;
-    padding: 2rem 1rem;
-    /* 画面全体をFlexboxにして、コンテンツを中央に配置 */
+    padding: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     box-sizing: border-box;
-    /* 美しいグラデーション背景 */
-    background: linear-gradient(135deg, var(--background-start), var(--background-end));
 }
 
-/* 中央のカードコンテナ */
+/* 中央のコンテナ */
 .container {
     width: 100%;
-    max-width: 500px;
-    background: var(--card-bg);
-    border-radius: 20px;
-    box-shadow: 0 10px 30px var(--shadow-color);
-    padding: 2.5rem;
+    max-width: 400px;
+    background-color: var(--card-color);
+    border-radius: 40px;
+    padding: 2rem;
     box-sizing: border-box;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    /* クレイモーフィズムの影 */
+    box-shadow: 10px 10px 20px var(--shadow-dark), -10px -10px 20px var(--shadow-light);
 }
 
-/* ヘッダー */
 header {
     text-align: center;
     margin-bottom: 2rem;
-    color: var(--text-color);
 }
-
 header h1 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1.8rem;
-    color: var(--primary-color);
-}
-
-header p {
+    font-weight: 800;
+    font-size: 2rem;
     margin: 0;
-    font-size: 0.9rem;
-    color: var(--light-text-color);
+}
+header p {
+    margin: 0.25rem 0 0;
+    color: var(--icon-color);
 }
 
-/* 入力フォーム */
-.input-group {
+/* 入力エリア */
+.input-area {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    align-items: center;
+    background-color: #ECE7E2;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
     margin-bottom: 1.5rem;
+    gap: 0.5rem;
 }
-
+.input-area .icon-fridge::before {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    content: "\e57d"; /* Font Awesomeの冷蔵庫アイコン */
+    color: var(--icon-color);
+}
 input[type="text"] {
-    width: 100%;
-    padding: 0.8rem 1rem;
-    border: 2px solid #eee;
-    border-radius: 10px;
-    font-size: 1rem;
+    flex-grow: 1;
+    border: none;
+    background: transparent;
+    padding: 0.5rem;
     font-family: inherit;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
+    font-size: 1rem;
+    width: 25%;
 }
-
-input[type="text"]:focus {
+input:focus {
     outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 10px rgba(74, 144, 226, 0.2);
 }
 
 /* ボタン */
@@ -88,71 +86,74 @@ button {
     width: 100%;
     padding: 1rem;
     border: none;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 20px;
+    background-color: var(--accent-color);
     color: white;
-    font-size: 1.1rem;
-    font-weight: 700;
-    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 800;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+    transition: all 0.2s ease-in-out;
+    /* クレイモーフィズムのボタン */
+    box-shadow: 5px 5px 10px #d45a33, -5px -5px 10px #ff8653;
 }
-
-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+button:active {
+    box-shadow: inset 5px 5px 10px #d45a33, inset -5px -5px 10px #ff8653;
+    transform: scale(0.98);
 }
 
 /* 結果エリア */
-.result-section {
+.result-area {
     margin-top: 2rem;
-    min-height: 50px; /* 結果が表示されてもガタつかないように高さを確保 */
+    min-height: 100px;
 }
-
-#recipe-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+#recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
 }
-
-.recipe-item {
-    background: #f8f9fa;
-    padding: 0.8rem 1.2rem;
-    border-radius: 8px;
-    margin-bottom: 0.8rem;
-    border-left: 5px solid var(--secondary-color);
-    font-weight: 700;
-    color: var(--text-color);
+.recipe-card {
+    background-color: var(--card-color);
+    border-radius: 20px;
+    padding: 0.5rem;
+    text-align: center;
+    box-shadow: 5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
+    transition: transform 0.2s;
     opacity: 0;
-    transform: translateX(-20px);
-    animation: fadeIn 0.5s forwards;
+    transform: scale(0.9);
+    animation: popIn 0.4s forwards ease-out;
 }
-/* 検索結果がふわっと表示されるアニメーション */
-@keyframes fadeIn {
+.recipe-card:hover {
+    transform: scale(1.05);
+}
+.recipe-card img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+.recipe-card .recipe-name {
+    margin-top: 0.5rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+@keyframes popIn {
     to {
         opacity: 1;
-        transform: translateX(0);
+        transform: scale(1);
     }
 }
-/* 検索結果の表示を少しずつずらす */
-.recipe-item:nth-child(2) { animation-delay: 0.1s; }
-.recipe-item:nth-child(3) { animation-delay: 0.2s; }
-.recipe-item:nth-child(4) { animation-delay: 0.3s; }
-.recipe-item:nth-child(5) { animation-delay: 0.4s; }
 
-
-/* ローディングスピナー */
+/* ローダー */
 #loader {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid var(--primary-color);
+    width: 40px;
+    height: 40px;
+    border: 5px solid rgba(0,0,0,0.1);
+    border-left-color: var(--accent-color);
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
     animation: spin 1s linear infinite;
-    margin: 1rem auto;
+    margin: 2rem auto;
 }
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    to { transform: rotate(360deg); }
 }
 .hidden { display: none; }

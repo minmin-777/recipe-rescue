@@ -1,27 +1,43 @@
 <body>
-    <div class="container">
-        <header>
+
+    <main class="app-container">
+
+        <header class="app-header">
             <h1>冷蔵庫レスキュー</h1>
             <p>食材から、今日の献立を見つけよう。</p>
         </header>
 
-        <main>
-            <div class="input-area">
-                <i class="icon-fridge"></i>
-                <input type="text" id="ingredient1" placeholder="豚バラ肉…">
-                <input type="text" id="ingredient2" placeholder="キャベツ…">
-                <input type="text" id="ingredient3" placeholder="ピーマン…">
-            </div>
-            <button id="search-button">
-                <span class="button-text">レシピを探す</span>
-            </button>
+        <form id="search-form" action="#" method="get">
+            
+            <fieldset>
+                <legend class="visually-hidden">食材検索フォーム</legend>
 
-            <div class="result-area">
-                <div id="loader" class="hidden"></div>
-                <div id="recipe-grid">
-                    </div>
-            </div>
-        </main>
-    </div>
+                <div class="input-wrapper">
+                    <label for="ingredient1" class="visually-hidden">食材1</label>
+                    <input type="text" id="ingredient1" name="ingredient" placeholder="鶏肉">
+                    
+                    <label for="ingredient2" class="visually-hidden">食材2</label>
+                    <input type="text" id="ingredient2" name="ingredient" placeholder="玉ねぎ">
+
+                    <label for="ingredient3" class="visually-hidden">食材3</label>
+                    <input type="text" id="ingredient3" name="ingredient" placeholder="卵">
+                </div>
+
+                <button type="submit" id="search-button">レシピを探す</button>
+            </fieldset>
+        </form>
+
+        <section class="result-section" aria-labelledby="result-heading">
+            <h2 id="result-heading" class="visually-hidden">検索結果</h2>
+            
+            <div id="loader" class="hidden"></div>
+
+            <div id="recipe-grid" aria-live="polite">
+                </div>
+        </section>
+
+    </main>
+
     <script src="script.js"></script>
+
 </body>
